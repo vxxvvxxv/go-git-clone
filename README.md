@@ -2,7 +2,7 @@
 
 ## Motivation
 
-Every time, when I wanted to clone new project via git, I need to go my GOPATH folder and create sub-folders.
+Every time, when I wanted to clone new project via git, I need to go my `GOPATH` folder and create sub-folders.
 
 
 ### Example
