@@ -3,11 +3,10 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"strings"
 
 	"github.com/vxxvvxxv/go-git-clone/common"
-
-	"github.com/go-git/go-git/v5"
 )
 
 func main() {
@@ -37,10 +36,11 @@ func main() {
 		common.CheckIfError(err, common.ErrCreateFolders)
 	}
 
-	_, err = git.PlainClone(pathProject, false, &git.CloneOptions{
-		URL:      originUrl,
-		Progress: os.Stdout,
-	})
+	err = os.Chdir(pathProject)
+	common.CheckIfError(err, common.ErrCreateFolders)
+
+	cmd := exec.Command("git", "clone", originUrl)
+	err = cmd.Run()
 	common.CheckIfError(err, common.ErrClone)
 
 	common.Info("Success cloned: %s", originUrl)
