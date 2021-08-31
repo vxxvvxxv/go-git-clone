@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func GetUrlFolders(originUrl string) ([]string, error, string) {
+func GetUrlFolders(originUrl string) (string, []string, error, string) {
 	if strings.HasPrefix(originUrl, "git@") {
 		return getFoldersFromSSH(originUrl)
 	}
@@ -14,10 +14,10 @@ func GetUrlFolders(originUrl string) ([]string, error, string) {
 		return getFoldersFromHttps(originUrl)
 	}
 
-	return []string{}, errors.New(originUrl), ErrURL
+	return "", []string{}, errors.New(originUrl), ErrURL
 }
 
-func getFoldersFromSSH(urlString string) ([]string, error, string) {
+func getFoldersFromSSH(urlString string) (string, []string, error, string) {
 	fromIdx := strings.Index(urlString, "@")
 	toIdx := strings.Index(urlString, ".git")
 
@@ -25,20 +25,21 @@ func getFoldersFromSSH(urlString string) ([]string, error, string) {
 	return getFoldersFromHttps("git://" + strings.ReplaceAll(urlString, ":", "/")[fromIdx+1:toIdx])
 }
 
-func getFoldersFromHttps(urlString string) ([]string, error, string) {
+func getFoldersFromHttps(urlString string) (string, []string, error, string) {
 	urlParse, err := url.Parse(urlString)
 	if err != nil {
-		return []string{}, err, ErrURL
+		return "", []string{}, err, ErrURL
 	}
 
 	folders := []string{urlParse.Host}
 	pathFolders := strings.Split(urlParse.Path, "/")
 
 	if len(pathFolders) <= 1 {
-		return folders, errors.New("folders is missing"), ErrURL
+		return "", folders, errors.New("folders is missing"), ErrURL
 	}
 
 	folders = append(folders, pathFolders[1:len(pathFolders)-1]...)
+	project := strings.Split(pathFolders[len(pathFolders)-1:][0], ".")[0]
 
-	return folders, nil, ""
+	return project, folders, nil, ""
 }
