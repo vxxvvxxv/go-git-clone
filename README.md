@@ -2,17 +2,23 @@
 
 ## Motivation
 
-Every time, when I wanted to clone new project via git, I need to go my GOPATH folder and create sub-folders, for example:
+Every time, when I wanted to clone new project via git, I need to go my GOPATH folder and create sub-folders.
 
-1. I need to clone: `git@github.com:vxxvvxxv/go-git-clone.git`
-2. Go to GOPATH folder, ex.: `cd ~/go/src`
-3. Create new folder: `mkdir github.com && cd github.com`
-4. Create owner folder: `mkdir vxxvvxxv && cd vxxvvxxv`
-5. Clone new project: `git clone git@github.com:vxxvvxxv/go-git-clone.git && go-git-clone`
+
+### Example
+
+I need to clone: `git@github.com:vxxvvxxv/go-git-clone.git`
+
+My steps:
+
+1. Go to GOPATH folder, ex.: `cd ~/go/src`
+2. Create new folder: `mkdir github.com && cd github.com`
+3. Create owner folder: `mkdir vxxvvxxv && cd vxxvvxxv`
+4. Clone new project: `git clone git@github.com:vxxvvxxv/go-git-clone.git`
 
 I want just run: `go-git-clone git@github.com:vxxvvxxv/go-git-clone.git`
 
-This app, check and to create folders, run `git clone <url>` and go to the cloned project.
+This app, check and to create folders, and run `git clone <url>`.
 
 ## Install
 
