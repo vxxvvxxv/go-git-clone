@@ -23,7 +23,7 @@ This app, check and to create folders, and run `git clone <url>`.
 ## Install
 
 ```shell
-go install github.com/vxxvvxxv/go-git-clone
+go install github.com/vxxvvxxv/go-git-clone@latest
 ```
 
 ## Run
